@@ -1,0 +1,44 @@
+/* Landing.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url('../../images/landing.jpg'); /* Ruta de la imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+
+.title {
+  font-family: 'Pokemon Solid', sans-serif; /* Usa una fuente relacionada con Pokémon, puedes descargarla de Google Fonts o cualquier otro recurso de fuentes */
+  font-size: 60px; /* Aumenta el tamaño del título */
+  font-weight: bold;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ff3333; /* Cambia el color del título a rojo */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Agrega una sombra al texto */
+}
+
+.button {
+  background-color: #ffcc00; /* Cambia el color de fondo del botón a amarillo */
+  color: #333;
+  font-family: 'Pokemon Solid', sans-serif; /* Usa la misma fuente que el título */
+  font-size: 28px; /* Ajusta el tamaño del texto del botón */
+  font-weight: bold;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #ff9900; /* Cambia el color de fondo del botón al pasar el ratón */
+}
