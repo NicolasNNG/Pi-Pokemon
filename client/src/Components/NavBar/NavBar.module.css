@@ -1,0 +1,64 @@
+/* NavBar.module.css */
+
+.nav_cont {
+    background-color: #ffcb05; /* Amarillo, color representativo de Pokémon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0px 4px 6px rgba(255, 203, 5, 0.1);
+    font-family: 'Arial', sans-serif; /* Puedes cambiar la fuente según tus preferencias */
+}
+
+.nav_link {
+    text-decoration: none;
+    color: #ff3860; /* Rosa, color representativo de Pokémon */
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s ease; /* Transición suave para el cambio de color al pasar el mouse */
+}
+
+.nav_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+    transition: 0.3s ease; /* Transición suave para el cambio de color al pasar el mouse */
+}
+
+.iconContainer {
+    margin-bottom: 8px; /* Espaciado entre el ícono y el texto */
+}
+
+.icon {
+    width: 50px; /* Tamaño del ícono según tus necesidades */
+    height: auto;
+    transition: 0.3s ease; /* Transición suave para el cambio de brillo al pasar el mouse */
+}
+
+.text {
+    font-size: 18px; /* Tamaño del texto, un poco más grande para mayor énfasis */
+    color: #1f1f1f; /* Color de texto oscuro para un contraste adecuado */
+    text-align: center; /* Alinea el texto al centro */
+    transition: 0.3s ease; /* Transición suave para el cambio de color al pasar el mouse */
+}
+
+.active {
+    font-weight: bold;
+}
+
+/* Estilo para el resaltado cuando se pasa el mouse */
+.nav_link:hover .icon {
+    filter: brightness(1.2); /* Ajusta el brillo para resaltar el ícono */
+}
+
+.nav_link:hover .text {
+    color: #000000; /* Cambia el color del texto al pasar el mouse */
+}
+
+/* Estilo para el enlace activo al pasar el mouse */
+.nav_link:hover .active {
+    color: #131312; /* Cambia el color del texto del enlace activo al pasar el mouse */
+}

@@ -1,17 +1,22 @@
 
-import {NavLink} from 'react-router-dom';
+
 import style from  "./landing.module.css";
+import { useNavigate } from 'react-router-dom';
 
 const Landing=()=>{
+const navigate = useNavigate(); // Obtiene el objeto de navegación
+
+  const handleEnterClick = () => {
+    // Llama a navigate para redirigir a /home
+    navigate('/home');
+  };
     return(
         <div className={style.container}>
-            <div>
-                <h1 className={style.title}>Bienvenido</h1>
-                <NavLink to='/home'>
-                <button className={style.button}>LOG IN</button>
+            <h1 className={style.title}>Bienvenido</h1>
+            <button className={style.button}onClick={handleEnterClick}>LOG IN</button>
 
-                </NavLink>
-            </div>
+               
+            
         </div>
     )
 }

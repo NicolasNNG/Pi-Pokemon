@@ -1,5 +1,6 @@
 export const SET_CURRENT_PAGE= "SET_CURRENT_PAGE";
-export const ALL_POKEMONS= 'ALL_POKEMONS'
+export const GET_BY_NAME='GET_BY_NAME';
+export const ALL_POKEMON= 'ALL_POKEMON'
 export const ALL_TYPES= 'ALL_TYPES'
 export const POKEMON_NAME= 'POKEMON_NAME'
 export const ORDER_NAME= 'ORDER_NAME'

@@ -1,16 +1,29 @@
 const {getAllPokemonController}=require('../controllers/getAllPKControllers')
 const {getById}=require('../controllers/getById');
 const {postPokemon}=require('../controllers/getCreatePokemon')
-const getAllPokemonHandler=async(req,res)=>{
-    const {name}=req.query
-    try{
-        const Pokemon=await getAllPokemonController(name)
-        res.status(200).send(Pokemon);
-    }catch(error){
-        res.status(400).send({error:error.message})
-    }
+
+
+const getAllPokemonHandler = async(req, res) =>{
+   
+    const {name} = req.query
+    
+   try {
+    const Pokemon = await getAllPokemonController(name)
+    res.status(200).send(Pokemon);
+   } catch (error) {
+    res.status(400).send({error: error.message})
+   }
 }
 
+// const getPokemonNameHandler=async(req,res)=>{
+//     const {name}=req.query
+//     try{
+//         const Pokemon=await getAllPokemonController(name)
+//         res.status(200).send(Pokemon);
+//     }catch(error){
+//         res.status(400).send({error:error.message})
+//     }
+// }
 
 
 const getByIdHandlers=async(req,res)=>{
@@ -60,4 +73,5 @@ module.exports={getAllPokemonHandler,
                
                 getByIdHandlers,
                 postCreatePokemonHandlers,
+                
                 }
