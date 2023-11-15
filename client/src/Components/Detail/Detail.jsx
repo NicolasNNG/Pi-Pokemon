@@ -1,117 +1,112 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+// Detail.jsx
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPokeId } from "../../redux/actions";
 import style from "./Detail.module.css";
 import typeColors from "../Card/typeColors";
 
+
 const Detail = () => {
   const { id } = useParams();
-  const [pokemon, setPokemon] = useState({});
+  const dispatch = useDispatch();
+  const pokeDetails = useSelector((state) => state?.detailsPokemon);
+  const types = pokeDetails?.types || [];
 
   useEffect(() => {
-    axios(`http://localhost:3001/pokemon/${id}`)
-      .then(({ data }) => {
-        if (data && data.length > 0) {
-          setPokemon(data[0]);
-        }
-      })
-      .catch((error) => {
-        console.log("Error al obtener el pokémon:", error);
-      });
-  }, [id]);
+    dispatch(getPokeId(id));
+  }, [id, dispatch]);
 
-  const MAX_STAT_VALUE = 100;
+  const calculateProgressBarWidth = (stat, maxStat) => {
+    return { width: `${(stat / maxStat) * 100}%` };
+  };
 
-  if (Object.keys(pokemon).length > 0) {
-    return (
-      <div className={style.Detail}>
-        <div className={style.ImageContainer}>
-          <img src={pokemon.image} alt="" className={style.Image} />
-        </div>
-        <div className={style.text}>
-          <h2>ID: {pokemon.id}</h2>
-          <h1>{pokemon.name}</h1>
-          <div className={style.progressBarContainer}>
-            <div className={style.progressBarLabel}>HP</div>
-            <progress
-              className={style.progressBar}
-              value={pokemon.hp}
-              max={MAX_STAT_VALUE}
-            ></progress>
-            <p className={style.statValue}>{pokemon.hp}</p>
+  return (
+    <div className={style.detail}>
+      <div className={style.detailContainer}>
+        <h2 className={style.detailTitle}>Pokemon Details</h2>
+        <div className={style.detailContent}>
+          <div className={style.detailImageContainer}>
+            <img
+              src={pokeDetails?.image}
+              alt={pokeDetails?.name}
+              className={style.detailImage}
+            />
           </div>
-          <div className={style.progressBarContainer}>
-            <div className={style.progressBarLabel}>Attack</div>
-            <progress
-              className={style.progressBar}
-              value={pokemon.attack}
-              max={MAX_STAT_VALUE}
-            ></progress>
-          </div>
-          <div className={style.progressBarContainer}>
-            <div className={style.progressBarLabel}>Defense</div>
-            <progress
-              className={style.progressBar}
-              value={pokemon.defense}
-              max={MAX_STAT_VALUE}
-            ></progress>
-          </div>
-          <div className={style.progressBarContainer}>
-            <div className={style.progressBarLabel}>Speed</div>
-            <progress
-              className={style.progressBar}
-              value={pokemon.speed || 0}
-              max={MAX_STAT_VALUE}
-            ></progress>
-          </div>
-          <div className={style.progressBarContainer}>
-            <div className={style.progressBarLabel}>Height</div>
-            <progress
-              className={style.progressBar}
-              value={pokemon.height || 0}
-              max={MAX_STAT_VALUE}
-            ></progress>
-          </div>
-          <div className={style.progressBarContainer}>
-            <div className={style.progressBarLabel}>Weight</div>
-            <progress
-              className={style.progressBar}
-              value={pokemon.weight || 0}
-              max={MAX_STAT_VALUE}
-            ></progress>
-          </div>
-          <div className={`${style.typesWrapper} ${style.fixed}`}>
-            <div className={style.typesLabel}>Types</div>
-            <div className={style.typesContainer}>
-              {pokemon.types.map((type, index) => (
+          <div className={style.detailInfo}>
+            <h2>Name: {pokeDetails?.name}</h2>
+            <h2>HP: {pokeDetails?.hp}</h2>
+            <div className={style.progressBarContainer}>
+              <p className={style.progressBarLabel}></p>
+              <div className={style.progressBar}>
                 <div
-                  key={index}
-                  className={style.type}
-                  style={typeColors[type] ? typeColors[type] : {}}
-                >
-                  {type}
-                </div>
-              ))}
+                  className={`${style.progressBarFill} ${style.hp}`}
+                  style={calculateProgressBarWidth(pokeDetails?.hp, 100)}
+                ></div>
+              </div>
             </div>
+            <h2>Attack: {pokeDetails?.attack}</h2>
+            <div className={style.progressBarContainer}>
+              <p className={style.progressBarLabel}></p>
+              <div className={style.progressBar}>
+                <div
+                  className={`${style.progressBarFill} ${style.attack}`}
+                  style={calculateProgressBarWidth(pokeDetails?.attack, 100)}
+                ></div>
+              </div>
+            </div>
+            <h2>Defense: {pokeDetails?.defense}</h2>
+            <div className={style.progressBarContainer}>
+              <p className={style.progressBarLabel}></p>
+              <div className={style.progressBar}>
+                <div
+                  className={`${style.progressBarFill} ${style.defense}`}
+                  style={calculateProgressBarWidth(pokeDetails?.defense, 100)}
+                ></div>
+              </div>
+            </div>
+            <h2>Height: {pokeDetails?.height}</h2>
+            <div className={style.progressBarContainer}>
+              <p className={style.progressBarLabel}></p>
+              <div className={style.progressBar}>
+                <div
+                  className={`${style.progressBarFill} ${style.Height}`}
+                  style={calculateProgressBarWidth(pokeDetails?.defense, 100)}
+                ></div>
+              </div>
+            </div>
+            <h2>Weight: {pokeDetails?.weight}</h2>
+            <div className={style.progressBarContainer}>
+              <p className={style.progressBarLabel}></p>
+              <div className={style.progressBar}>
+                <div
+                  className={`${style.progressBarFill} ${style.Weight}`}
+                  style={calculateProgressBarWidth(pokeDetails?.defense, 100)}
+                ></div>
+              </div>
+            </div>
+            <div className={style.detailInfo}>
+    {/* Otro contenido ... */}
+    <h2>Type: {types.map((type, index) => (
+        <span
+            key={index}
+            className={style.typeLabel}
+            style={{
+                backgroundColor: typeColors[type]?.backgroundColor || '#777',
+                color: typeColors[type]?.color || '#FFF',
+                borderRadius: typeColors[type]?.borderRadius || '5px',
+                boxShadow: typeColors[type]?.boxShadow || '0px 0px 5px rgba(119, 119, 119, 0.5)'
+            }}
+        >
+            {type}
+        </span>
+    ))}</h2>
+</div>
           </div>
         </div>
-        <Link to="/Home">
-          <button className={style.ButtonBack}>Back</button>
-        </Link>
       </div>
-    );
-  } else {
-    return (
-      <div className={style.loading}>
-        <p>Loading...</p>
-        <img
-          src="https://i.gifer.com/origin/28/2860d2d8c3a1e402e0fc8913cd92cd7a_w200.gif"
-          alt="Loading"
-          className={style.loadingImage}
-        />
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default Detail;

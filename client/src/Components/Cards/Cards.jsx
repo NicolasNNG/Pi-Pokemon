@@ -1,17 +1,32 @@
-import PropTypes from "prop-types";
-import Card from "../Card/Card";
-import style from "./cards.module.css";
-const Cards = ({ Pokemons }) => {
-  return (
-    <div className={style.cards}>
-      {Pokemons.map((Pokemon) => (
-        <Card Pokemons={Pokemon} key={Pokemon.id} />
-      ))}
-    </div>
-  );
-};
-Cards.propTypes = {
-  Pokemons: PropTypes.arrayOf(PropTypes.object).isRequired
-};
+import React from 'react';
+import Card from '../Card/Card';
+import style from './Cards.module.css';
+
+const Cards = ({ pokemons  }) => {
+
+    return(
+        <div className={style.cards}>
+            { pokemons.map(({ id, name, image, hp, attack, defense, height, weight, types }) => {
+
+                return(
+                    <Card
+                    key={id}
+                    id={id}
+                    name={name}
+                    image={image}
+                    hp={hp}
+                    attack={attack}
+                    defense={defense}
+                    height={height}
+                    weight={weight}
+                    types={types}
+                    />
+                )
+            })
+            }
+
+        </div>
+    )
+}
 
 export default Cards;

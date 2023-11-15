@@ -1,12 +1,25 @@
 const { Router } = require('express');
-const pokemonRouter=require('./pokemonRouter');
-const {getAllTypeHandler}=require ('../handlers/typeHandler')
-const router = Router();
+// Importar todos los routers;
 
-router.use('/pokemon',pokemonRouter)
-router.use('/type',getAllTypeHandler)
+const PokemonsHandler = require('../handlers/getPokemons');
+const getPokemonbyIdHandler = require('../handlers/getId');
+const getPokemonByNameHandler = require('../handlers/getName');
+const postPokemon = require('../handlers/postPokemon');
+const getTypeHandler = require('../handlers/getTypes');
+const imageHandler = require('../handlers/imgPokemon')
+
+
 // Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
+
+const mainRouter = Router();
+
+mainRouter.get('/name', getPokemonByNameHandler)//http://localhost:3001/pokemons?name=bulbasaur
+mainRouter.get('/pokemons/:idPokemon', getPokemonbyIdHandler);//http://localhost:3001/pokemons/1
+mainRouter.get('/pokemons', PokemonsHandler); //http://localhost:3001/pokemons
+mainRouter.post('/pokemons', postPokemon);
+mainRouter.get('/types', getTypeHandler);//http://localhost:3001/types
+mainRouter.get('/images', imageHandler);
 
 
-module.exports = router;
+
+module.exports = mainRouter;

@@ -1,32 +1,54 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import typeColors from './typeColors'; // Asegúrate de importar el objeto typeColors desde el archivo correspondiente
-import style from './card.module.css'; // Asegúrate de importar el archivo de estilos CSS
+// import { Link } from 'react-router-dom';
 
-const Card = ({ Pokemons }) => {
-    const { name, image, id, types } = Pokemons;
-    const formattedTypes = types.join('  , ');
-    const typeStyles = types.map(type => typeColors[type]);
+// import style from './Card.module.css';
+
+// const Card = ({ id, name, image, types }) => {
+
+//     return(
+//         <div className={style.card} >
+//             <Link to={`/detail/${id}`} className={style.cardLink} >
+//                 <h2 className={style.cardTitle}>{name}</h2>
+//                 <img className={style.img} src={image}/>
+//             <p className={style.cardType} >Tipos : {types}</p>
+//             </Link>
+
+            
+//         </div>
+//     )
+
+// }
+
+// export default Card;
+import { Link } from 'react-router-dom';
+import typeColors from './typeColors'; // Asegúrate de proporcionar la ruta correcta
+import style from './Card.module.css';
+
+const Card = ({ id, name, image, types }) => {
+    const typeArray = Array.isArray(types) ? types : types.split(',').map(type => type.trim());
 
     return (
-        <Link to={`/detail/${id}`} className={style.detail_card}>
-            <div className={style.imagen}>
-                <img src={image} alt={name} loading="lazy" />
-            </div>
-            <div className={style.detail_text}>{name}</div>
-            <div className={style.detail_text}>
-                {formattedTypes.split(', ').map((type, index) => (
-                    <span
-                        key={index}
-                        className={style.typeBadge}
-                        style={typeStyles[index]}
-                    >
-                        {type}
-                    </span>
-                ))}
-            </div>
-            
-        </Link>
+        <div className={style.card}>
+            <Link to={`/detail/${id}`} className={style.cardLink}>
+                <h2 className={style.cardTitle}>{name}</h2>
+                <img className={style.img} src={image} alt={name} />
+                <p className={style.cardType}>
+                    Tipos: {typeArray.map((type, index) => (
+                        <span
+                            key={index}
+                            className={style.typeLabel}
+                            style={{
+                                backgroundColor: typeColors[type]?.backgroundColor || '#777',
+                                color: typeColors[type]?.color || '#FFF',
+                                borderRadius: typeColors[type]?.borderRadius || '5px',
+                                boxShadow: typeColors[type]?.boxShadow || '0px 0px 5px rgba(119, 119, 119, 0.5)'
+                            }}
+                        >
+                            {type}
+                        </span>
+                    ))}
+                </p>
+            </Link>
+        </div>
     );
 };
 
